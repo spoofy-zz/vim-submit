@@ -78,7 +78,7 @@ let g:vim_submit_wait_for_output = 1
 
 MIT
 
-How to install on macOS machine:
+### How to install on macOS machine:
                                                                                                                                         
   1 — Install prerequisites:                                                                                                            
   # Install Node.js if not present (via Homebrew)                                                                                       

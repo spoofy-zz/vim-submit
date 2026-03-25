@@ -37,6 +37,7 @@ Plug 'your-username/vim-submit'
 " ~/.vimrc
 let g:zowe_profile = 'myprofile'   " z/OSMF profile name
 let g:zowe_cmd     = 'zowe'        " path to Zowe executable
+nnoremap <Leader>s :JCLSubmit<CR>
 ```
 
 All options: see `:help vim-submit-config`.

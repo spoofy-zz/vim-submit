@@ -1,0 +1,48 @@
+● The plugin is complete. Here's what was created:
+                                                                                                                                        
+  Plugin structure
+                                                                                                                                        
+  vim-submit/                                                                                                                           
+  ├── plugin/vim-submit.vim     # Entry point — defines :JCL* commands                                                                  
+  ├── autoload/vimsubmit.vim    # All logic (lazy-loaded)                                                                               
+  ├── ftdetect/jcl.vim          # Auto-sets filetype=jcl for *.jcl files
+  ├── ftplugin/jcl.vim          # LocalLeader mappings for JCL buffers                                                                  
+  ├── syntax/jcl.vim            # JCL syntax highlighting   
+  └── doc/vim-submit.txt        # :help vim-submit                                                                                      
+                                                                                                                                        
+  Commands
+                                                                                                                                        
+  ┌───────────────────────┬───────────────────────────────────────┐
+  │        Command        │              Description              │
+  ├───────────────────────┼───────────────────────────────────────┤
+  │ :JCLSubmit            │ Submit current buffer as JCL          │
+  ├───────────────────────┼───────────────────────────────────────┤
+  │ :JCLSubmitFile [file] │ Submit a file (default: current file) │                                                                     
+  ├───────────────────────┼───────────────────────────────────────┤
+  │ :JCLStatus [jobid]    │ Show job status                       │                                                                     
+  ├───────────────────────┼───────────────────────────────────────┤
+  │ :JCLOutput [jobid]    │ Show all spool output                 │
+  ├───────────────────────┼───────────────────────────────────────┤                                                                     
+  │ :JCLJobs [prefix]     │ List jobs on JES spool                │
+  ├───────────────────────┼───────────────────────────────────────┤                                                                     
+  │ :JCLCancel [jobid]    │ Cancel a job                          │
+  └───────────────────────┴───────────────────────────────────────┘                                                                     
+  
+  All commands default to the last submitted job when no job ID is given.                                                               
+                                                            
+  Quick setup                                                                                                                           
+  
+  " ~/.vimrc                                                                                                                            
+  Plug 'your-username/vim-submit'   " or manual install     
+  let g:zowe_profile = 'myprofile'  " your z/OSMF profile name
+                                                                                                                                        
+  Configure Zowe once:                                                                                                                  
+  zowe profiles create zosmf myprofile \                                                                                                
+      --host mvs.example.com --port 443 \                                                                                               
+      --user IBMUSER --password secret \                    
+      --reject-unauthorized false       
+                                 
+  Then open any .jcl file and press <LocalLeader>s to submit, <LocalLeader>o to view output. Output opens in a reusable split buffer
+  (close with q).                                                                                                                       
+  
+

@@ -1,0 +1,121 @@
+*vim-submit.txt*  Submit JCL jobs to MVS via Zowe CLI
+
+                                                                *vim-submit*
+
+INTRODUCTION                                            *vim-submit-intro*
+
+vim-submit lets you submit JCL jobs directly to an IBM z/OS mainframe from
+Vim using the Zowe CLI (https://zowe.org).  Results are displayed in a
+reusable scratch buffer inside Vim.
+
+Requires Zowe CLI v2+ installed and a configured z/OSMF profile.
+Install Zowe: >
+    npm install -g @zowe/cli
+    zowe profiles create zosmf myprofile --host HOST --port 443 \
+        --user USER --password PASS --reject-unauthorized false
+<
+
+===========================================================================
+COMMANDS                                              *vim-submit-commands*
+
+:JCLSubmit                                                    *:JCLSubmit*
+    Write the current buffer to a temporary file and submit it as a JCL
+    job.  Works on any buffer, not just files saved to disk.
+
+:JCLSubmitFile [file]                                     *:JCLSubmitFile*
+    Submit a file from disk.  Defaults to the current file if no argument
+    is given.
+
+:JCLStatus [jobid]                                          *:JCLStatus*
+    Display the status of a job.  Defaults to the last submitted job.
+
+:JCLOutput [jobid]                                          *:JCLOutput*
+    Fetch and display all spool output for a job.  Defaults to the last
+    submitted job.
+
+:JCLJobs [prefix]                                           *:JCLJobs*
+    List jobs on the JES spool.  An optional prefix filters by job name
+    (e.g. `:JCLJobs BATCH*`).
+
+:JCLCancel [jobid]                                          *:JCLCancel*
+    Cancel a job.  Defaults to the last submitted job.
+
+===========================================================================
+CONFIGURATION                                          *vim-submit-config*
+
+All variables may be set in your |vimrc| before the plugin loads.
+
+g:zowe_cmd                                                  *g:zowe_cmd*
+    Path to the Zowe CLI executable.
+    Default: `'zowe'`
+    Example: >
+        let g:zowe_cmd = '/usr/local/bin/zowe'
+<
+
+g:zowe_profile                                          *g:zowe_profile*
+    z/OSMF profile name passed to every Zowe call via `--zosmf-profile`.
+    When empty, Zowe uses its default profile.
+    Default: `''`
+    Example: >
+        let g:zowe_profile = 'prod'
+<
+
+g:vim_submit_split                                  *g:vim_submit_split*
+    Modifier used when opening the output window.
+    Default: `'botright'`
+    Example: >
+        let g:vim_submit_split = 'vertical'
+<
+
+g:vim_submit_height                                *g:vim_submit_height*
+    Height (or width when vertical) of the output window in lines.
+    Default: `15`
+
+g:vim_submit_wait_for_output                *g:vim_submit_wait_for_output*
+    When set to `1`, `:JCLSubmit` passes `--wait-for-output` to Zowe and
+    then automatically opens the spool output on completion.  Vim will
+    block until the job finishes.
+    Default: `0`
+
+===========================================================================
+MAPPINGS                                            *vim-submit-mappings*
+
+When editing a `*.jcl` file the following |LocalLeader| mappings are
+available.  Disable them by setting `g:vim_submit_no_maps = 1` (or
+`b:vim_submit_no_maps = 1` per buffer) before the plugin loads.
+
+    <LocalLeader>s      :JCLSubmit
+    <LocalLeader>o      :JCLOutput  (last job)
+    <LocalLeader>j      :JCLStatus  (last job)
+    <LocalLeader>l      :JCLJobs
+
+The output buffer can always be closed with `q`.
+
+===========================================================================
+VARIABLES SET BY THE PLUGIN                          *vim-submit-vars*
+
+g:vim_submit_last_jobid                        *g:vim_submit_last_jobid*
+    Automatically set to the job ID of the most recently submitted job.
+    Commands that accept an optional jobid use this as a default.
+
+===========================================================================
+QUICKSTART                                        *vim-submit-quickstart*
+
+1. Configure Zowe: >
+       zowe profiles create zosmf mymvs \
+           --host mvs.example.com --port 443 \
+           --user IBMUSER --password secret \
+           --reject-unauthorized false
+<
+2. Add to your |vimrc|: >
+       let g:zowe_profile = 'mymvs'
+<
+3. Open a JCL file and run: >
+       :JCLSubmit
+<
+4. Check the job: >
+       :JCLStatus
+       :JCLOutput
+<
+===========================================================================
+ vim:tw=78:ts=8:ft=help:norl:

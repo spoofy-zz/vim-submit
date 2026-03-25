@@ -74,20 +74,20 @@ let g:vim_submit_wait_for_output = 1
 
 > Note: Vim will block until the job finishes. Suitable for short-running jobs.
 
-## License
+### License
 
 MIT
 
-### How to install on macOS machine:
+## How to install on macOS machine:
                                                                                                                                         
   1 — Install prerequisites:                                                                                                            
-  # Install Node.js if not present (via Homebrew)                                                                                       
+  ### Install Node.js if not present (via Homebrew)                                                                                       
   brew install node                                                                                                                     
                                                                                                                                         
-  # Install Zowe CLI
+  ### Install Zowe CLI
   npm install -g @zowe/cli                                                                                                              
                                                                
-  # Configure your MVS connection                                                                                                       
+  ### Configure your MVS connection                                                                                                       
   zowe profiles create zosmf hercules \
       --host your-mvs-host --port 443 \                                                                                                 
       --user IBMUSER --password secret \                                                                                                

@@ -1,6 +1,4 @@
 # vim-submit
-Vim plugin to submit JCL jobs to IBM       z/OS via Zowe CLI
-=======
 
 A Vim plugin to submit JCL jobs directly to IBM z/OS mainframes using [Zowe CLI](https://zowe.org).
 
@@ -26,7 +24,7 @@ zowe profiles create zosmf myprofile \
 
 **vim-plug:**
 ```vim
-Plug 'your-username/vim-submit'
+Plug 'spoofy-zz/vim-submit'
 ```
 
 **Manual:** copy the directories (`plugin/`, `autoload/`, `ftdetect/`, `ftplugin/`, `syntax/`, `doc/`) into `~/.vim/` (or `~/.config/nvim/` for Neovim).

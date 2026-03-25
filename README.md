@@ -79,4 +79,4 @@ let g:vim_submit_wait_for_output = 1
 ## License
 
 MIT
->>>>>>> 2c6f748 (Initial release of vim-submit)
+
